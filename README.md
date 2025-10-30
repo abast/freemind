@@ -17,7 +17,7 @@ FreeMind is a free mind mapping application written in Java. This setup uses Jav
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/freemind.git ~/project_src/freemind
+   git clone https://github.com/abast/freemind.git ~/project_src/freemind
    ```
 
 2. Make the launcher script executable:
