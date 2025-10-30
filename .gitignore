@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Thumbnails
+.Spotlight-V100
+.Trashes
+
+# FreeMind user files (these should stay local)
+# Uncomment if you don't want to track user preferences
+# auto.properties
+# auto.mmfilter
+
+# Backup files
+*.bak
+*~
+
+# Log files
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Temporary files
+tmp/
+temp/
