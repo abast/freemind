@@ -113,11 +113,14 @@ ${SUDO} tee "${APP_CONTENTS}/Info.plist" > /dev/null << 'PLIST_EOF'
 </plist>
 PLIST_EOF
 
-# Try to extract or create an icon
-# For now, we'll create a simple text-based icon placeholder
+# Copy application icon
 echo "Setting up application icon..."
-# If you have an icon file, copy it here:
-# cp /path/to/icon.icns "${APP_RESOURCES}/FreeMind.icns"
+if [ -f "${SCRIPT_DIR}/FreeMindWindowIconModern.icns" ]; then
+    ${SUDO} cp "${SCRIPT_DIR}/FreeMindWindowIconModern.icns" "${APP_RESOURCES}/FreeMind.icns"
+    echo "✓ Icon installed"
+else
+    echo "⚠ Warning: Icon file not found, app will use default icon"
+fi
 
 echo ""
 echo "✓ FreeMind.app has been successfully installed!"
