@@ -1,6 +1,6 @@
 # FreeMind for macOS
 
-FreeMind 1.0.1 configured to run properly on macOS. This repository contains a working FreeMind installation with a launcher script that addresses rendering issues on modern macOS systems.
+FreeMind 1.0.1 with **macOS font rendering fixes**. This repository contains a patched version of FreeMind that correctly renders fonts on macOS, solving the blurry/incorrect font display issues present in the standard FreeMind distribution.
 
 ## About
 
@@ -63,12 +63,19 @@ To run FreeMind without keeping a terminal window open, create an Application bu
 
 ## macOS Rendering Fix
 
-This setup addresses common rendering issues with Java Swing applications on macOS:
+**This version includes a modified `freemind.jar` (12.9 MB) with font rendering patches specifically for macOS.** The standard FreeMind 1.0.1 distribution (11 MB) has severe font rendering issues on macOS where text appears blurry or incorrectly sized.
 
+This patched version was extracted from the official FreeMind macOS DMG bundle and includes:
+
+- **Patched freemind.jar** with macOS-specific font rendering fixes
 - Uses Java 8 for optimal compatibility
 - Properly configured classpath and Java system properties
 - Memory allocation set to 256MB (`-Xmx256M`)
 - Correct base directory configuration for plugins and resources
+
+**Note:** The standard FreeMind binary distribution from SourceForge does NOT include these macOS fixes. This repository provides the working macOS version.
+
+For detailed information about the modifications, see [MODIFICATIONS.md](MODIFICATIONS.md).
 
 ## Usage
 
