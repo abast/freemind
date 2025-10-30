@@ -12,19 +12,34 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define app bundle structure
 APP_NAME="FreeMind"
-APP_BUNDLE="$HOME/Applications/${APP_NAME}.app"
+APP_BUNDLE="/Applications/${APP_NAME}.app"
 APP_CONTENTS="${APP_BUNDLE}/Contents"
 APP_MACOS="${APP_CONTENTS}/MacOS"
 APP_RESOURCES="${APP_CONTENTS}/Resources"
 
+# Check if we need sudo
+if [ ! -w "/Applications" ]; then
+    echo "This script requires administrator privileges to install to /Applications."
+    echo "You may be prompted for your password."
+    SUDO="sudo"
+else
+    SUDO=""
+fi
+
+# Remove existing app if present
+if [ -d "${APP_BUNDLE}" ]; then
+    echo "Removing existing FreeMind.app..."
+    ${SUDO} rm -rf "${APP_BUNDLE}"
+fi
+
 # Create directory structure
 echo "Creating application bundle structure..."
-mkdir -p "${APP_MACOS}"
-mkdir -p "${APP_RESOURCES}"
+${SUDO} mkdir -p "${APP_MACOS}"
+${SUDO} mkdir -p "${APP_RESOURCES}"
 
 # Create the launcher script
 echo "Creating launcher script..."
-cat > "${APP_MACOS}/${APP_NAME}" << 'LAUNCHER_EOF'
+${SUDO} tee "${APP_MACOS}/${APP_NAME}" > /dev/null << 'LAUNCHER_EOF'
 #!/bin/bash
 
 # Get the directory where FreeMind is installed
@@ -48,11 +63,11 @@ exec bash freemind.sh "$@"
 LAUNCHER_EOF
 
 # Make the launcher executable
-chmod +x "${APP_MACOS}/${APP_NAME}"
+${SUDO} chmod +x "${APP_MACOS}/${APP_NAME}"
 
 # Create Info.plist
 echo "Creating Info.plist..."
-cat > "${APP_CONTENTS}/Info.plist" << 'PLIST_EOF'
+${SUDO} tee "${APP_CONTENTS}/Info.plist" > /dev/null << 'PLIST_EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -105,13 +120,15 @@ echo "Setting up application icon..."
 # cp /path/to/icon.icns "${APP_RESOURCES}/FreeMind.icns"
 
 echo ""
-echo "✓ FreeMind.app has been created at: ${APP_BUNDLE}"
+echo "✓ FreeMind.app has been successfully installed!"
+echo ""
+echo "Location: ${APP_BUNDLE}"
 echo ""
 echo "You can now:"
-echo "  1. Open FreeMind from Spotlight (search for 'FreeMind')"
-echo "  2. Add FreeMind to your Dock"
-echo "  3. Open .mm files directly with FreeMind"
+echo "  1. Open FreeMind from Spotlight (⌘+Space, type 'FreeMind')"
+echo "  2. Find it in Launchpad"
+echo "  3. Add FreeMind to your Dock"
+echo "  4. Open .mm files directly with FreeMind"
 echo ""
-echo "Note: On first launch, you may need to right-click the app and select 'Open'"
-echo "      to bypass macOS Gatekeeper security."
+echo "Note: If Spotlight doesn't find it immediately, wait a few seconds for indexing."
 echo ""

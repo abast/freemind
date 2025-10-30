@@ -51,15 +51,15 @@ To run FreeMind without keeping a terminal window open, create an Application bu
 
 1. Follow steps 1-2 from Option 1
 
-2. Run the installation script:
+2. Run the installation script (will ask for your password):
    ```bash
    cd ~/project_src/freemind
    ./install_macos_app.sh
    ```
 
-3. This will create `FreeMind.app` in your Applications folder
+3. This will create `FreeMind.app` in `/Applications/`
 
-4. Launch FreeMind from Spotlight, Launchpad, or Applications folder
+4. Launch FreeMind from Spotlight (⌘+Space, type "FreeMind"), Launchpad, or Applications folder
 
 ## macOS Rendering Fix
 
